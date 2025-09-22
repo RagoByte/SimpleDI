@@ -49,16 +49,28 @@ public T Instantiate<T>(T prefab, Transform parent = null, bool includeChildren 
 ---
 
 # Public API
+
 ## DependencyContext
 
-**Register<T>(T instance)** -	Registers an instance of type T in the current context.
+**`Register<T>(T instance)`** -	Registers an instance of type T in the current context.
 
-**RegisterWithDontDestroyOnLoad<T>(T instance)** - Registers the instance and marks its GameObject as DontDestroyOnLoad.
+**`RegisterWithDontDestroyOnLoad<T>(T instance)`** - Registers the instance and marks its GameObject as DontDestroyOnLoad.
 
-**Resolve<T>()** - Returns a registered object of type T. If not found, it checks the parent context. Injects dependencies on first resolve.
+**`Resolve<T>()`** - Returns a registered object of type T. If not found, it checks the parent context. Injects dependencies on first resolve.
 
-**CreateChild()**	- Creates a new child context and automatically assigns the current context as its parent.
+**`CreateChild()`**	- Creates a new child context and automatically assigns the current context as its parent.
 
-**CreateWithDependencies<T>()**	- Creates an object of type T via its constructor, injecting all required dependencies.
+**`CreateWithDependencies<T>()`**	- Creates an object of type T via its constructor, injecting all required dependencies.
 
-**InstantiateWithDependency<T>(T prefab, Transform parent = null, bool includeChildren = true)**	- Instantiates the prefab and injects dependencies into all of its components, siblings, and children.
+**`InstantiateWithDependency<T>(T prefab, Transform parent = null, bool includeChildren = true)`**	- Instantiates the prefab and injects dependencies into all of its components, siblings, and children.
+
+## DependencyFactory (This is just a wrapper around DependencyContext to make code easier)
+
+
+**`SetChildContext(DependencyContext child)`** -	Sets the child context that will be used for object creation.
+
+**`CreateInstance<T>()`** -	Wrapper over **ActiveContext.CreateWithDependencies<T>()**.
+
+**`Instantiate<T>(T prefab, Transform parent = null, bool includeChildren = true)`** -	Wrapper over **ActiveContext.InstantiateWithDependency(...)**.
+
+**`Resolve<T>()`** -	Wrapper over **ActiveContext.Resolve<T>()**.
