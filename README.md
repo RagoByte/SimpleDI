@@ -3,8 +3,6 @@
 I like the Service Locator pattern, but its main downside is hidden dependencies.  
 So I decided to get rid of them — and ended up with a very simple DI container.  
 
-This is a small side project to gain at least a surface-level understanding of how dependency injection works in Unity and how to properly manage dependencies.  
-
 ---
 
 ## Installation  
