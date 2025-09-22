@@ -17,7 +17,7 @@ No extra setup, no external packages required.
 ## Key Features  
 
 - **Register only instances** — you cannot register just types.  
-- **No lifetimes (Singleton / Scoped / Transient):**  
+- **No lifetimes (Singleton / Scoped / Transient like in VContainer):**  
   - **Singleton →** register in the global context.  
   - **Scoped →** register in a child context.  
   - **Transient →** no registration needed, just create with:  
