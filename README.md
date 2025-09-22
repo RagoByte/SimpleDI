@@ -40,7 +40,7 @@ public T Instantiate<T>(T prefab, Transform parent = null, bool includeChildren 
  **[Dependency]** attribute — injects dependencies into fields, properties, methods, or constructors.
 
 **DependencyFactory** — a helper that encapsulates global and child contexts and makes object creation / prefab instantiation simpler.
-(You can write your own wrapper if you prefer.)
+(**`You can write your own wrapper if you prefer`**.)
 
 **Resolve<T>()** — resolves and injects dependencies into an object on its first resolve call.
 
