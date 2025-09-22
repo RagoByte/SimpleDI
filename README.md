@@ -5,13 +5,6 @@ So I decided to get rid of them — and ended up with a very simple DI container
 
 ---
 
-## Installation  
-
-Just copy the **SimpleDI** folder into your Unity project.  
-No extra setup, no external packages required.  
-
----
-
 ## Key Features  
 
 - **Register only instances** — you cannot register just types.  
@@ -74,6 +67,14 @@ public T Instantiate<T>(T prefab, Transform parent = null, bool includeChildren 
 **`Resolve<T>()`** -	Wrapper over **ActiveContext.Resolve<T>()**.
 
 ---
+
+## Installation  
+
+Just copy the **SimpleDI** folder into your Unity project.  
+No extra setup, no external packages required.  
+
+---
+
 # Example Usage
 ### Global Context Setup
 ```csharp
