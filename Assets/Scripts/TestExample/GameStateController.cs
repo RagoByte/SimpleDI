@@ -29,6 +29,12 @@ namespace TestExample
             {
                 _dependencyFactory.Instantiate(_сonfig.BoxPrefab);
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Enemy enemy = _dependencyFactory.CreateInstance<Enemy>();
+                enemy.Attack();
+            }
         }
 
         private async Task LoadGameScene()
