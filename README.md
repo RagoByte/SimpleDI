@@ -11,7 +11,7 @@ So I decided to get rid of them — and ended up with a very simple DI container
 - **No lifetimes (Singleton / Scoped / Transient like in VContainer):**  
   - **Singleton →** register in the global context.  
   - **Scoped →** register in a child context.  
-  - **Transient →** no registration needed, just create with:  
+  - **Transient →** no registration needed (but reflections cached in first resolve), just create with:  
 
 ```csharp
 public T CreateInstance<T>() 
