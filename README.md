@@ -74,3 +74,111 @@ public T Instantiate<T>(T prefab, Transform parent = null, bool includeChildren 
 **`Instantiate<T>(T prefab, Transform parent = null, bool includeChildren = true)`** -	Wrapper over **ActiveContext.InstantiateWithDependency(...)**.
 
 **`Resolve<T>()`** -	Wrapper over **ActiveContext.Resolve<T>()**.
+
+---
+# Example Usage
+### Global Context Setup
+```csharp
+public class GlobalDependencyContext : DependencyContext
+{
+    [SerializeField] private Config config;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        Registrations();
+        Resolve<GameStateController>(); // start
+    }
+
+    private void Registrations()
+    {
+        Register<GlobalDependencyContext>(this);
+        Register(new DependencyFactory());
+        Register(config);
+
+        RegisterWithDontDestroyOnLoad(Instantiate(config.GameStateControllerPrefab));
+
+        Register<ILoggerService>(new LoggerService());
+    }
+}
+```
+### Creating a Child Context and Registering a Player
+
+```csharp
+private async Task LoadGameScene()
+{
+    if (_childDependencyContext) Destroy(_childDependencyContext.gameObject);
+    await SceneManager.LoadSceneAsync("GameScene");
+
+    _childDependencyContext = _globalDependencyContext.CreateChild();
+    _dependencyFactory.SetChildContext(_childDependencyContext);
+
+    _childDependencyContext.Register(Instantiate(_сonfig.PlayerPrefab));
+}
+```
+
+### Resolving and Using a Dependency
+
+```csharp
+Player player = _dependencyFactory.Resolve<Player>();
+player.gameObject.SetActive(!player.isActiveAndEnabled);
+```
+
+### Instantiating a Prefab with Dependencies
+
+```csharp
+_dependencyFactory.Instantiate(_сonfig.BoxPrefab);
+```
+
+### Creating a C# Object in runtime
+
+```csharp
+public class Enemy
+{
+    private ILoggerService _logger;
+
+    private Enemy(ILoggerService logger)
+    {
+        _logger = logger;
+        _logger.Log("Enemy created!");
+    }
+
+    public void Attack() => _logger.Log("Attack!");
+}
+```
+Usage:
+```csharp
+Enemy enemy = _dependencyFactory.CreateInstance<Enemy>();
+enemy.Attack();
+```
+
+### MonoBehaviour with Constructor Injection
+```csharp
+public class Box : MonoBehaviour
+{
+    ILoggerService _loggerService;
+    private Player _player;
+
+    [Dependency]
+    private void Construct(ILoggerService logger, Player player)
+    {
+        _player = player;
+        _loggerService = logger;
+        logger.Log("Box Constructed");
+    }
+
+    private void Start()
+    {
+        _loggerService.Log("start invoked in Box");
+    }
+
+    private void Update()
+    {
+         if (Input.GetKeyDown(KeyCode.U))
+            {
+                _player.Up();
+            }
+    }
+}
+
+```
