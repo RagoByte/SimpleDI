@@ -7,7 +7,7 @@ So I decided to get rid of them — and ended up with a very simple DI container
 
 ## Key Features  
 
-- **Register only instances** — you cannot register just types.  
+- **Register only instances** — you cannot register just types. `(but there are no errors if you create a circular dependency)`.
 - **No lifetimes (Singleton / Scoped / Transient like in VContainer):**  
   - **Singleton →** register in the global context.  
   - **Scoped →** register in a child context.  
